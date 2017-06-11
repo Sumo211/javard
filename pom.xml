@@ -36,6 +36,14 @@
         </dependency>
         <!-- End NLP package -->
 
+        <!-- Kafka package -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.11</artifactId>
+            <version>0.10.2.1</version>
+        </dependency>
+        <!-- End Kafka package-->
+
         <!-- Unit Test -->
         <dependency>
             <groupId>junit</groupId>
