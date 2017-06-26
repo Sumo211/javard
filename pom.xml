@@ -44,6 +44,15 @@
         </dependency>
         <!-- End Kafka package-->
 
+        <!-- Utilities-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.16</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- End Utilities-->
+
         <!-- Unit Test -->
         <dependency>
             <groupId>junit</groupId>
