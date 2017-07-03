@@ -78,4 +78,42 @@ class CollaborativeFiltering {
         return result;
     }
 
+    double computePearsonCorrelationCoefficient(Map<String, List<Double>> similarRating) {
+        double s_xy = 0, s_x = 0, s_y = 0, s_xx = 0, s_yy = 0;
+        int n = similarRating.size();
+
+        if (n == 0) return 0;
+
+        double x, y;
+        for (Map.Entry<String, List<Double>> entry : similarRating.entrySet()) {
+            x = entry.getValue().get(0);
+            y = entry.getValue().get(1);
+            s_xy += (x * y);
+            s_x += x;
+            s_y += y;
+            s_xx += (x * x);
+            s_yy += (y * y);
+        }
+
+        double numerator = s_xy - ((s_x * s_y) / n);
+        double denominator = Math.sqrt(s_xx - ((s_x * s_x) / n)) * Math.sqrt(s_yy - ((s_y * s_y) / n));
+        return (denominator != 0) ? (numerator / denominator) : 0;
+    }
+
+    double computeCosineSimilarity(Map<String, List<Double>> similarRating) {
+        double s_xx = 0, s_yy = 0, s_xy = 0;
+
+        double x, y;
+        for (Map.Entry<String, List<Double>> entry : similarRating.entrySet()) {
+            x = entry.getValue().get(0);
+            y = entry.getValue().get(1);
+            s_xx += (x * x);
+            s_yy += (y * y);
+            s_xy += (x * y);
+        }
+
+        double denominator = Math.sqrt(s_xx) * Math.sqrt(s_yy);
+        return (denominator != 0) ? (s_xy / denominator) : 0;
+    }
+
 }

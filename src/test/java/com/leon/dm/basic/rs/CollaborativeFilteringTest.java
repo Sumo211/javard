@@ -129,4 +129,39 @@ public class CollaborativeFilteringTest {
         assertEquals(collaborativeFiltering.computeBasedOnEuclideanDistance(similarRating), Math.sqrt(19.25), 0.001);
     }
 
+    @Test
+    public void testComputePearsonCorrelationCoefficient_Case1() {
+        Map<String, List<Double>> similarRating = collaborativeFiltering.preFilter(testData.get("Angelica"), testData.get("Bill"));
+        assertEquals(collaborativeFiltering.computePearsonCorrelationCoefficient(similarRating), -0.90405349906826993, 0.001);
+    }
+
+    @Test
+    public void testComputePearsonCorrelationCoefficient_Case2() {
+        Map<String, List<Double>> similarRating = collaborativeFiltering.preFilter(testData.get("Angelica"), testData.get("Hailey"));
+        assertEquals(collaborativeFiltering.computePearsonCorrelationCoefficient(similarRating), 0.42008402520840293, 0.001);
+    }
+
+    @Test
+    public void testComputePearsonCorrelationCoefficient_Case3() {
+        Map<String, List<Double>> similarRating = collaborativeFiltering.preFilter(testData.get("Angelica"), testData.get("Jordyn"));
+        assertEquals(collaborativeFiltering.computePearsonCorrelationCoefficient(similarRating), 0.76397486054754316, 0.001);
+    }
+
+    @Test
+    public void testComputeCosineSimilarity_Case1() {
+        Map<String, List<Rating>> testDataForCosineSimilarity = new HashMap<>();
+        testDataForCosineSimilarity.put("Angelica", new ArrayList<>(Arrays.asList(new Rating("Blues Traveler", 3.5), new Rating("Broken Bells", 2.0),
+                new Rating("Norah Jones", 4.5), new Rating("Phoenix", 5.0),
+                new Rating("Slightly Stoopid", 1.5), new Rating("The Strokes", 2.5),
+                new Rating("Vampire Weekend", 2.0), new Rating("Deadmau5", 0))));
+        testDataForCosineSimilarity.put("Veronica", new ArrayList<>(Arrays.asList(new Rating("Blues Traveler", 3.0), new Rating("Norah Jones", 5.0),
+                new Rating("Phoenix", 4.0), new Rating("Slightly Stoopid", 2.5),
+                new Rating("The Strokes", 3.0), new Rating("Broken Bells", 0),
+                new Rating("Deadmau5", 0), new Rating("Vampire Weekend", 0))));
+
+        Map<String, List<Double>> similarRating = collaborativeFiltering.preFilter(testDataForCosineSimilarity.get("Angelica"),
+                testDataForCosineSimilarity.get("Veronica"));
+        assertEquals(collaborativeFiltering.computeCosineSimilarity(similarRating), 0.9246, 0.001);
+    }
+
 }
